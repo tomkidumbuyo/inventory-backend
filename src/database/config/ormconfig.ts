@@ -3,8 +3,6 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-console.log(`${__dirname}/**/*.entity.js`);
-
 const ormConfig: TypeOrmModuleOptions = {
   type: 'mysql',
   host: process.env.DB_HOST || 'localhost',

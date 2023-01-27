@@ -11,7 +11,7 @@ const ormConfig: TypeOrmModuleOptions = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   entities: [
-    `${__dirname}/**/*.entity.js`,
+    `${__dirname}/../**/*.entity.js`,
     'node_modules/nestjs-admin/**/*.entity.js',
   ],
   migrations: ['dist/database/migrations/*{.ts,.js}'],

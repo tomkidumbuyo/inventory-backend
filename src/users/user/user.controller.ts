@@ -4,8 +4,8 @@ import { JwtAuthGuard } from '@auth/jwt-auth.guard';
 
 @ApiTags('user')
 @Controller('user')
+@UseGuards(JwtAuthGuard)
 export class UserController {
-  @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;

@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, UpdateDateColumn } from 'typeorm';
 import BaseEntity from './base.entity';
 
+
 export enum UserTypeEnum {
   ISSUER = 'ISSUER',
   STORE_KEEPER = 'STORE_KEEPER',

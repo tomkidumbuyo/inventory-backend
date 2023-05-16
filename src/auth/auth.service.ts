@@ -28,9 +28,8 @@ export class AuthService {
       loginInput.password,
     );
     if (user) {
-      const payload = { username: user.username, sub: user.userId };
       return {
-        access_token: this.jwtService.sign(payload),
+        access_token: this.jwtService.sign(user),
       };
     }
     throw new UnauthorizedException();

@@ -1,7 +1,6 @@
 import { Column, CreateDateColumn, Entity, UpdateDateColumn } from 'typeorm';
 import BaseEntity from './base.entity';
 
-
 export enum UserTypeEnum {
   ISSUER = 'ISSUER',
   STORE_KEEPER = 'STORE_KEEPER',
@@ -25,7 +24,7 @@ export default class UserEntity extends BaseEntity {
   @Column({ name: 'user_type' })
   userType: UserTypeEnum;
 
-  @Column({ name: 'password' })
+  @Column({ select: false })
   password: string;
 
   @CreateDateColumn({ name: 'created_at', nullable: false })

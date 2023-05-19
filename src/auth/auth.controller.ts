@@ -1,7 +1,15 @@
 import { LoginDto, RegisterDto } from '@database/dtos/auth.dto';
-import { Body, Controller, Post, Request } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -16,5 +24,11 @@ export class AuthController {
   @Post('register')
   async register(@Request() req, @Body() registerInput: RegisterDto) {
     return this.authService.register(registerInput);
+  }
+
+  @Get('isAuthenticated')
+  @UseGuards(JwtAuthGuard)
+  isAuthenticated(@Request() req) {
+    return true;
   }
 }

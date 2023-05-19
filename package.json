@@ -19,8 +19,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./e2e/jest.config.js --forceExit --unhandled-rejections=strict --maxWorkers ${E2E_MAX_WORKERS:-3}",
-    "migration:create": "yarn typeorm migration:create src/database/migrations/\\",
-    "migration:run": "yarn build && npx typeorm-ts-node-commonjs migration:run -d src/database/config/ormconfig-migrations.ts",
+    "migration:create": "yarn typeorm migration:create src/lib/database/migrations/\\",
+    "migration:run": "yarn build && npx typeorm-ts-node-commonjs migration:run -d src/lib/database/config/ormconfig-migrations.ts",
     "clear-jest": "jest --clearCache"
   },
   "dependencies": {
@@ -32,6 +32,7 @@
     "@nestjs/swagger": "^6.1.4",
     "@nestjs/typeorm": "^9.0.1",
     "bcrypt": "^5.1.0",
+    "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "mysql2": "^2.3.3",
     "passport": "^0.6.0",

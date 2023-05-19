@@ -1,8 +1,10 @@
 import { RegisterDto } from '@database/dtos/auth.dto';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserService } from 'src/users/user/user.service';
+import * as errors from '@errors';
+import { UserRepository } from '@database/repositories';
 
 const SALT_OR_ROUND = 10;
 
@@ -11,15 +13,23 @@ export class AuthService {
   constructor(
     private usersService: UserService,
     private jwtService: JwtService,
+    private userRepository: UserRepository,
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.usersService.findOne(email);
-    if (user && (await bcrypt.compare(password, user.password))) {
+    const userPassword = (
+      await this.userRepository.findOne({
+        where: { email },
+        select: { password: true },
+      })
+    ).password;
+    if (!user) throw new errors.UserDoesNotExist();
+    if (await bcrypt.compare(password, userPassword)) {
       const { password, ...result } = user;
       return result;
     }
-    return null;
+    throw new errors.UsernameAndPasswordDoNotMatch();
   }
 
   async login(loginInput: any) {
@@ -29,10 +39,10 @@ export class AuthService {
     );
     if (user) {
       return {
+        user: user,
         access_token: this.jwtService.sign(user),
       };
     }
-    throw new UnauthorizedException();
   }
 
   async hashPassword(password: string) {

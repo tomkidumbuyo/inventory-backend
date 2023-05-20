@@ -3,10 +3,11 @@ import BaseEntity from './base.entity';
 
 @Entity('equipment_types')
 export class EquipmentTypeEntity extends BaseEntity {
-  model_number: string;
+  @Column({ name: 'model_number' })
+  modelNumber: string;
 
-  @Column()
-  model_name: string;
+  @Column({ name: 'model_name' })
+  modelName: string;
 
   @Column()
   description: string;

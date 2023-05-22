@@ -1,11 +1,11 @@
+import { RackEntity } from '@database/entities';
 import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { BaseRepository } from './base.repository';
-import { UserEntity } from '@database/entities';
 
 @Injectable()
-export class UserRepository extends BaseRepository<UserEntity> {
+export class RackRepository extends BaseRepository<RackEntity> {
   constructor(private dataSource: DataSource) {
-    super(UserEntity, dataSource.createEntityManager());
+    super(RackEntity, dataSource.createEntityManager());
   }
 }

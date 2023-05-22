@@ -26,3 +26,18 @@ export class ChangeStoreManagerDto {
   @ApiProperty()
   storeManagerId: string;
 }
+
+export class CreateBinDto {}
+
+export class CreateRackDto {}
+
+export class CreateShelfDto {
+  number: string;
+  storeId: string;
+}
+
+export class UpdateBinDto {}
+
+export class UpdateRackDto {}
+
+export class UpdateShelfDto {}

@@ -1,7 +1,13 @@
 import { JwtAuthGuard } from '@auth/jwt-auth.guard';
 import {
   ChangeStoreManagerDto,
+  CreateBinDto,
+  CreateRackDto,
+  CreateShelfDto,
   CreateStoreDto,
+  UpdateBinDto,
+  UpdateRackDto,
+  UpdateShelfDto,
   UpdateStoreDto,
 } from '@database/dtos/store.dto';
 import {
@@ -13,6 +19,7 @@ import {
   Request,
   Body,
   Param,
+  Delete,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { StoreService } from './store.service';
@@ -46,7 +53,7 @@ export class StoreController {
   ) {
     this.storeService.updateStore(
       { id: params.storeId, ...updateStoreInput },
-      req.user.id,
+      req.user,
     );
   }
 
@@ -63,5 +70,76 @@ export class StoreController {
       },
       req.user.id,
     );
+  }
+
+  @Post('shelves/:storeId')
+  getStoreShelves(@Request() req, @Param() param) {
+    return this.storeService.getStoreShelves(param.storeId, req.user);
+  }
+
+  @Post('create-bin')
+  createBin(@Request() req, @Body() createStoreInput: CreateBinDto) {
+    return this.storeService.createBin(createStoreInput, req.user);
+  }
+
+  @Post('update-bin/:binId')
+  updateBin(
+    @Request() req,
+    @Param() param,
+    @Body() createStoreInput: UpdateBinDto,
+  ) {
+    return this.storeService.updateBin(
+      { createStoreInput, id: param.binId },
+      req.user,
+    );
+  }
+
+  @Delete('delete-bin/:binId')
+  deleteBin(@Request() req, @Param() param) {
+    return this.storeService.deleteBin(param.binId, req.user);
+  }
+
+  @Post('create-rack')
+  createRack(@Request() req, @Body() createStoreInput: CreateRackDto) {
+    return this.storeService.createRack(createStoreInput, req.user);
+  }
+
+  @Post('update-rack/:rackId')
+  updateRack(
+    @Request() req,
+    @Param() param,
+    @Body() createStoreInput: UpdateRackDto,
+  ) {
+    return this.storeService.updateRack(
+      { createStoreInput, id: param.rackId },
+      req.user,
+    );
+  }
+
+  @Delete('delete-shelf/:shelfId')
+  deleteRack(@Request() req, @Param() param) {
+    return this.storeService.deleteRack(param.shelfId, req.user);
+  }
+
+  @Post('create-shelf')
+  createShelf(@Request() req, @Body() createStoreInput: CreateShelfDto) {
+    return this.storeService.createShelf(createStoreInput, req.user);
+  }
+
+  @Post('update-shelf/:shelfId')
+  updateShelf(
+    @Request() req,
+    @Param() param,
+    @Body() createStoreInput: UpdateShelfDto,
+  ) {
+    return this.storeService.updateShelf(
+      { createStoreInput, id: param.shelfId },
+      req.user,
+    );
+  }
+
+  @Delete('delete-shelf/:shelfId')
+  deleteShelf(@Request() req, @Param() param) {
+    return this.storeService.deleteShelf(param.shelfId, req.user);
   }
 }

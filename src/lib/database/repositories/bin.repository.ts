@@ -1,11 +1,11 @@
+import { BinEntity } from '@database/entities';
 import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { BaseRepository } from './base.repository';
-import { UserEntity } from '@database/entities';
 
 @Injectable()
-export class UserRepository extends BaseRepository<UserEntity> {
+export class BinRepository extends BaseRepository<BinEntity> {
   constructor(private dataSource: DataSource) {
-    super(UserEntity, dataSource.createEntityManager());
+    super(BinEntity, dataSource.createEntityManager());
   }
 }

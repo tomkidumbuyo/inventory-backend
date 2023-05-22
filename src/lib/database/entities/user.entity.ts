@@ -1,14 +1,14 @@
-import { Column, CreateDateColumn, Entity, UpdateDateColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 import BaseEntity from './base.entity';
 
 export enum UserTypeEnum {
-  ISSUER = 'ISSUER',
+  AGENT = 'AGENT',
   STORE_KEEPER = 'STORE_KEEPER',
-  APPROVER = 'APPROVER',
+  ADMIN = 'ADMIN',
 }
 
 @Entity('users')
-export default class UserEntity extends BaseEntity {
+export class UserEntity extends BaseEntity {
   @Column({ name: 'email' })
   email: string;
 
@@ -27,9 +27,11 @@ export default class UserEntity extends BaseEntity {
   @Column({ select: false })
   password: string;
 
-  @CreateDateColumn({ name: 'created_at', nullable: false })
-  createdAt: Date;
+  @OneToOne((type) => UserEntity)
+  @JoinColumn({ name: 'created_by_user_id' })
+  createdBy: UserEntity;
 
-  @UpdateDateColumn({ name: 'updated_at', nullable: false })
-  updatedAt: Date;
+  @OneToOne((type) => UserEntity)
+  @JoinColumn({ name: 'updated_by_user_id' })
+  updatedBy: UserEntity;
 }

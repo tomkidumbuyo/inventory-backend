@@ -1,7 +1,7 @@
 import { Entity, Column, JoinColumn, OneToOne, OneToMany } from 'typeorm';
-import UserEntity from './user.entity';
 import BaseEntity from './base.entity';
 import { MovedEquipmentEntity } from './moved-equipment.entity';
+import { UserEntity } from './user.entity';
 
 export enum EquipmentMovementOutTypeEnum {
   INTERNAL_EVENT = 'INTERNAL_EVENT',
@@ -18,11 +18,8 @@ export enum EquipmentMovementStageEnum {
   COLLECTED = 'COLLECTED',
 }
 
-
-
 @Entity('equipment_out_movements')
 export class EquipmentOutMovementEntity extends BaseEntity {
-
   @OneToOne((type) => UserEntity)
   @JoinColumn({ name: 'requested_by' })
   requestedBy: UserEntity;
@@ -55,4 +52,12 @@ export class EquipmentOutMovementEntity extends BaseEntity {
     (movedEquipment) => movedEquipment.outMovement,
   )
   movedEquipment: MovedEquipmentEntity[];
+
+  @OneToOne((type) => UserEntity)
+  @JoinColumn({ name: 'created_by_user_id' })
+  createdBy: UserEntity;
+
+  @OneToOne((type) => UserEntity)
+  @JoinColumn({ name: 'updated_by_user_id' })
+  updatedBy: UserEntity;
 }

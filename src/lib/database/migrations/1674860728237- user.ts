@@ -10,7 +10,7 @@ export class undefinedser1674860728237 implements MigrationInterface {
             first_name varchar(255) NOT NULL,
             last_name varchar(255) NOT NULL,
             phone_number varchar(20) NOT NULL,
-            user_type varchar(10) NOT NULL DEFAULT 'ISSUER',
+            user_type varchar(10) NOT NULL DEFAULT 'AGENT',
             created_at timestamp NOT NULL DEFAULT now(),
             updated_at timestamp NOT NULL DEFAULT now(),
             CONSTRAINT users_pkey PRIMARY KEY (id)
